@@ -8,8 +8,12 @@
   <meta name="description" content="Calcolo sconto percentuale immediato: inserisci prezzo e percentuale e ottieni prezzo finale e risparmio. Include esempi, sconto su sconto ed errori comuni + FAQ.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#0f0f10">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4927439683414332"
-     crossorigin="anonymous"></script>
+
+  <!-- AdSense -->
+  <script async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4927439683414332"
+    crossorigin="anonymous"></script>
+
   <style>
     :root{
       --bg:#0f0f10;
@@ -141,21 +145,16 @@
         </div>
 
         <div class="section" aria-label="Esempi e casi tipici">
-          <h2>Esempi rapidi (per controllare al volo)</h2>
+          <h2>Esempi rapidi</h2>
 
           <h3>Da 100 € con sconto 20%</h3>
           <p>Prezzo finale: 80 € (risparmio: 20 €)</p>
 
-          <h3>Sconto su sconto (errore comune)</h3>
+          <h3>Sconto su sconto</h3>
           <p>
-            Due sconti del 20% NON fanno 40%. Esempio: 100 € → -20% = 80 € → -20% = 64 €.
+            Due sconti del 20% NON fanno 40%.  
+            100 € → 80 € → 64 €.  
             Sconto totale effettivo: 36%.
-          </p>
-
-          <h3>“Sconto finto”</h3>
-          <p>
-            Il calcolo ti dà il prezzo finale, ma la convenienza reale si vede confrontando col prezzo storico o con alternative simili.
-            Se prima alzano il prezzo e poi “scontano”, il numero torna ma tu ci rimetti lo stesso.
           </p>
         </div>
 
@@ -164,28 +163,28 @@
 
           <details>
             <summary>Come si calcola lo sconto percentuale?</summary>
-            <p>Prezzo finale = Prezzo iniziale × (1 - sconto/100). Risparmio = Prezzo iniziale - Prezzo finale.</p>
+            <p>Prezzo finale = Prezzo iniziale × (1 − sconto/100).</p>
           </details>
 
           <details>
-            <summary>Due sconti successivi si sommano?</summary>
-            <p>No. Si applicano in cascata. Due sconti del 20% equivalgono a uno sconto totale del 36%.</p>
+            <summary>Due sconti si sommano?</summary>
+            <p>No. Si applicano in cascata.</p>
           </details>
 
           <details>
-            <summary>Quanto deve essere uno sconto per essere “buono”?</summary>
-            <p>Dipende dalla categoria e dal prezzo storico. Il calcolo è oggettivo; la convenienza richiede confronto con alternative o prezzi precedenti.</p>
+            <summary>Uno sconto alto è sempre conveniente?</summary>
+            <p>No. Conta il prezzo di partenza.</p>
           </details>
 
           <p class="tiny">
-            Nota: lo sconto percentuale è matematica. La “convenienza” è confronto.
+            Nota: il calcolo è matematico. La convenienza è confronto.
           </p>
         </div>
 
         <div class="section links" aria-label="Altri calcolatori utili">
           <h2>Altri calcolatori utili</h2>
           <ul>
-            <li><a href="../oggi-e-festivo/">Oggi è festivo</a></li>
+            <li><a href="../">Oggi è festivo</a></li>
             <li><a href="../scorporo-iva/">Scorporo IVA</a></li>
             <li><a href="../supermercati-aperti-oggi/">Supermercati aperti oggi</a></li>
           </ul>
@@ -203,23 +202,15 @@
             "name": "Come si calcola lo sconto percentuale?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Prezzo finale = Prezzo iniziale × (1 - sconto/100). Risparmio = Prezzo iniziale - Prezzo finale."
+              "text": "Prezzo finale = Prezzo iniziale × (1 − sconto/100)."
             }
           },
           {
             "@type": "Question",
-            "name": "Due sconti successivi si sommano?",
+            "name": "Due sconti si sommano?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. Si applicano in cascata. Due sconti del 20% equivalgono a uno sconto totale del 36%."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Quanto deve essere uno sconto per essere buono?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Dipende dalla categoria e dal prezzo storico. Il calcolo è oggettivo; la convenienza richiede confronto con alternative o prezzi precedenti."
+              "text": "No, si applicano in cascata."
             }
           }
         ]
@@ -239,57 +230,39 @@
 
     function parseEuro(s) {
       if (!s) return NaN;
-      const cleaned = s
-        .toString()
-        .trim()
-        .replace(/\s/g, "")
-        .replace(/\./g, "")
-        .replace(",", ".");
+      const cleaned = s.toString().trim().replace(/\s/g,"").replace(/\./g,"").replace(",",".");
       return Number(cleaned);
     }
 
     function fmtEUR(n) {
-      return new Intl.NumberFormat("it-IT", { style: "currency", currency: "EUR" }).format(n);
+      return new Intl.NumberFormat("it-IT",{style:"currency",currency:"EUR"}).format(n);
     }
 
     function resetUI() {
-      finalEl.textContent = "€ —";
-      detailEl.textContent = "Paghi — • Risparmi —";
-      pillP.textContent = "Prezzo: —";
-      pillS.textContent = "Sconto: —";
-      pillR.textContent = "Risparmio: —";
+      finalEl.textContent="€ —";
+      detailEl.textContent="Paghi — • Risparmi —";
+      pillP.textContent="Prezzo: —";
+      pillS.textContent="Sconto: —";
+      pillR.textContent="Risparmio: —";
     }
 
     function calc() {
-      const price = parseEuro(priceEl.value);
-      const pct = parseEuro(pctEl.value);
-
-      if (!isFinite(price) || price <= 0 || !isFinite(pct)) {
-        resetUI();
-        return;
-      }
-
-      const p = Math.max(0, Math.min(100, pct));
-      const final = price * (1 - p / 100);
-      const save = price - final;
-
-      const price2 = Math.round(price * 100) / 100;
-      const final2 = Math.round(final * 100) / 100;
-      const save2 = Math.round(save * 100) / 100;
-
-      finalEl.textContent = fmtEUR(final2);
-      detailEl.textContent = `Paghi ${fmtEUR(final2)} • Risparmi ${fmtEUR(save2)}`;
-
-      pillP.textContent = `Prezzo: ${fmtEUR(price2)}`;
-      pillS.textContent = `Sconto: ${p}%`;
-      pillR.textContent = `Risparmio: ${fmtEUR(save2)}`;
+      const price=parseEuro(priceEl.value);
+      const pct=parseEuro(pctEl.value);
+      if(!isFinite(price)||price<=0||!isFinite(pct)){resetUI();return;}
+      const p=Math.max(0,Math.min(100,pct));
+      const final=price*(1-p/100);
+      const save=price-final;
+      finalEl.textContent=fmtEUR(final);
+      detailEl.textContent=`Paghi ${fmtEUR(final)} • Risparmi ${fmtEUR(save)}`;
+      pillP.textContent=`Prezzo: ${fmtEUR(price)}`;
+      pillS.textContent=`Sconto: ${p}%`;
+      pillR.textContent=`Risparmio: ${fmtEUR(save)}`;
     }
 
-    priceEl.addEventListener("input", calc);
-    pctEl.addEventListener("input", calc);
-
+    priceEl.addEventListener("input",calc);
+    pctEl.addEventListener("input",calc);
     resetUI();
-    calc();
   </script>
 </body>
 </html>
