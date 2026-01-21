@@ -9,6 +9,11 @@
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#0f0f10">
 
+  <!-- AdSense -->
+  <script async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4927439683414332"
+    crossorigin="anonymous"></script>
+
   <style>
     :root{
       --bg:#0f0f10;
@@ -188,7 +193,7 @@
         <div class="section links" aria-label="Altri calcolatori utili">
           <h2>Altri calcolatori utili</h2>
           <ul>
-            <li><a href="../oggi-e-festivo/">Oggi è festivo</a></li>
+            <li><a href="../">Oggi è festivo</a></li>
             <li><a href="../sconto-percentuale/">Sconto percentuale</a></li>
             <li><a href="../supermercati-aperti-oggi/">Supermercati aperti oggi</a></li>
           </ul>
@@ -293,11 +298,6 @@
 
     resetUI();
     calc();
-
-    // Service Worker (GitHub Pages-friendly path)
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./sw.js").catch(() => {});
-    }
   </script>
 </body>
 </html>
